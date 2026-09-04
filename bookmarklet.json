@@ -1,0 +1,33 @@
+javascript:(() => {
+  const markdownLink = `[${document.title}](${location.href})`;
+
+  navigator.clipboard
+    .writeText(markdownLink)
+    .then(() => {
+      const toast = document.createElement("div");
+
+      toast.textContent = "Copied Markdown link!";
+
+      Object.assign(toast.style, {
+        position: "fixed",
+        top: "16px",
+        right: "16px",
+        zIndex: 2147483647,
+        background: "#111",
+        color: "#fff",
+        padding: "10px 14px",
+        borderRadius: "9px",
+        font: "14px system-ui",
+        boxShadow: "0 4px 16px #0008"
+      });
+
+      document.body.append(toast);
+
+      setTimeout(() => {
+        toast.remove();
+      }, 1500);
+    })
+    .catch(() => {
+      prompt("Copy this:", markdownLink);
+    });
+})()
